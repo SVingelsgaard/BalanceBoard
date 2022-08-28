@@ -4,9 +4,6 @@ from webcam import Webcam
 import keyboard
 import time
 
-
-print("starting")
-
 cam = Webcam()
 
 while True:
@@ -17,7 +14,7 @@ while True:
 
     cam.cycle()
 
-    #time.sleep(1/120)
+    #time.sleep(0.2)
     
 
 
