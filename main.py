@@ -1,23 +1,23 @@
 #importing functionality
-from operator import truediv
 from servos import Servos
 from webcam import Webcam
 import keyboard
 import time
 
 
+print("starting")
 
 cam = Webcam()
 
 while True:
     if keyboard.is_pressed('q'): #if key 'q' is pressed 
+        print('exiting')
         cam.end()
-        print('exiting loop')
         break
 
     cam.cycle()
 
-    time.sleep(0.01)
+    #time.sleep(1/120)
     
 
 
