@@ -1,8 +1,7 @@
 #imports
-from cmath import sqrt
-from turtle import circle
 import numpy as np
 import cv2
+import matplotlib.pyplot as plt
 dist = lambda x1, y1, x2, y2: ((np.abs(np.float16(x1) - np.float16(x2))**2)+(np.abs(np.float16(y1) - np.float16(y2))**2))#pythagorian theorem
 
 class Webcam:
@@ -10,7 +9,8 @@ class Webcam:
         print("camera starting...")
         self.cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
         self.lastCircle = None
-
+        self.circlePositionsX = []
+        self.circlePositionsY = []
         print("camera ready")
 
 
@@ -33,22 +33,32 @@ class Webcam:
             self.circles = np.uint16(np.around(self.circles))
             self.circle = None
             for i in self.circles[0, :]:
-                if self.circle is None:
+                if self.circle is None: 
                     self.circle = i
                 if self.lastCircle is not None:
                     if dist(i[0], i[1], self.lastCircle[0], self.lastCircle[1]) < dist(self.circle[0], self.circle[1], self.lastCircle[0], self.lastCircle[1]):#check for the circle closest to last circle
                         self.circle = i
-            self.circlePos += [self.circle[0], self.circle[1]] #graph pos
             self.lastCircle = self.circle
 
-            print(self.circles)
             cv2.circle(self.frame, (self.circle[0], self.circle[1]), self.circle[2], (0,0,0), 3)#draw circle
-        
+            self.circlePositionsX.append(self.circle[0])#graph x pos
+            self.circlePositionsY.append(self.circle[1])#graph y pos
+            print(self.circle)
         
         cv2.imshow("Webcam", self.frame)
 
         cv2.waitKey(1)#for showing the image longer i think. does not work without i
 
     def end(self):
+        #graph
+        plt.style.use('seaborn-whitegrid')
+        self.fig = plt.figure()
+        self.ax = plt.axes()
+        self.ax.plot(self.circlePositionsX, self.circlePositionsY)
+        self.ax.axis("equal")
+        self.ax.set(xlim = (0, 800), ylim = (600, 0))
+
+        
+        plt.show()
         self.cap.release()
         cv2.destroyAllWindows()
