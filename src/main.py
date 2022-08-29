@@ -16,7 +16,7 @@ while True:
 
     cam.cycle()
 
-    #time.sleep(0.2)
+    #time.sleep(0.2)1
     
 
 
