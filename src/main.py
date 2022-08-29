@@ -14,7 +14,7 @@ while True:
         servos.end()
         break
 
-    cam.cycle()
+    ##cam.cycle()
     servos.cycle()
 
     

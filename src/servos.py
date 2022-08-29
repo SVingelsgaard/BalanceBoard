@@ -12,6 +12,10 @@ class Servos:
         #clock
         self.cycletime = 1 #the cycletime of when the cyclefunction will actually run is set here
         self.timeLast = time.time()
+
+        #servos
+        self.servoX = 0
+        self.servoY = 0
         
     #scuffed way to determen a cycletime of the cyclefunction without using delay
     def clock(self):
@@ -24,9 +28,10 @@ class Servos:
     def cycle(self):
         self.clock()
         if (self.runCycle):
-            suii = input("on/off: ".strip())
-            self.arduino.write("on".encode())
-            print(self.arduino.readline().decode("ascii"))
+            self.servoX += 1
+            self.data = str(self.servoX)
+            self.arduino.write(self.data.encode("utf-8"))
+
 
     def end(self):
         self.arduino.close()
