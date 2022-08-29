@@ -43,7 +43,6 @@ class Webcam:
             cv2.circle(self.frame, (self.circle[0], self.circle[1]), self.circle[2], (0,0,0), 3)#draw circle
             self.circlePositionsX.append(self.circle[0])#graph x pos
             self.circlePositionsY.append(self.circle[1])#graph y pos
-            print(self.circle)
         
         cv2.imshow("Webcam", self.frame)
 
@@ -57,8 +56,9 @@ class Webcam:
         self.ax.plot(self.circlePositionsX, self.circlePositionsY)
         self.ax.axis("equal")
         self.ax.set(xlim = (0, 800), ylim = (600, 0))
-
         
         plt.show()
+        
         self.cap.release()
         cv2.destroyAllWindows()
+        

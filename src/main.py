@@ -15,8 +15,9 @@ while True:
         break
 
     cam.cycle()
+    servos.cycle()
 
-    #time.sleep(0.2)1
+    
     
 
 
