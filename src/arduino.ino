@@ -2,12 +2,13 @@
 
 const unsigned int MAX_MESSAGE_LENGTH = 6;
 
-Servo MX;
-Servo MY;
+Servo servoX;
+Servo servoY;
 
 void setup() {
     Serial.begin(9600);
-    MX.attach(2);
+    servoX.attach(2);
+    servoY.attach(3);
 }
 
 void loop() {
@@ -33,9 +34,8 @@ void loop() {
             //Print the message (or do other things)
             int xPos = (String(message[0]) + String(message[1]) + String(message[2])).toInt() - 100; 
             int yPos = (String(message[3]) + String(message[4]) + String(message[5])).toInt() - 100; 
-            Serial.println(xPos);
-            Serial.println(yPos);
-            MX.write(xPos);
+            servoX.write(xPos);
+            servoY.write(yPos);
         
 
             //Reset for the next message
