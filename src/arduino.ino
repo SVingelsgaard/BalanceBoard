@@ -1,36 +1,45 @@
-//do not upload code while writing serial data :)(:
 #include <Servo.h>
 
-String data;
+const unsigned int MAX_MESSAGE_LENGTH = 6;
 
-Servo motor;
+Servo MX;
+Servo MY;
 
-
-//Servo x;
-
-void setup(){
+void setup() {
     Serial.begin(9600);
-    Serial.setTimeout(1);
-    pinMode(LED_BUILTIN, OUTPUT);
-    motor.attach(2);
+    MX.attach(2);
 }
 
-void loop(){
-    if (Serial.available()>0){
-        Serial.write("data available");
-       
-        data = Serial.readString();
+void loop() {
 
-        if (data == "n"){
-            digitalWrite(LED_BUILTIN, HIGH);
-            motor.write(45);
-            Serial.write("led on");
-        }else if (data == "f"){
-            digitalWrite(LED_BUILTIN, LOW);
-            motor.write(135);
-            Serial.write("led off");
-        } else {
-            Serial.write("come again");
+ //Check to see if anything is available in the serial receive buffer
+    while (Serial.available() > 0){
+    //Create a place to hold the incoming message
+    static char message[MAX_MESSAGE_LENGTH];
+    static unsigned int message_pos = 0;
+
+    //Read the next available byte in the serial receive buffer
+    char inByte = Serial.read();
+
+    //Message coming in (check not terminating character) and guard for over message size
+    if ( inByte != '\n' && (message_pos < MAX_MESSAGE_LENGTH-1))   {
+        //Add the incoming byte to our message
+        message[message_pos] = inByte;
+        message_pos++;
+        } else {//Full message received...
+            //Add last byte.
+            message[message_pos] = inByte;
+
+            //Print the message (or do other things)
+            int xPos = (String(message[0]) + String(message[1]) + String(message[2])).toInt() - 100; 
+            int yPos = (String(message[3]) + String(message[4]) + String(message[5])).toInt() - 100; 
+            Serial.println(xPos);
+            Serial.println(yPos);
+            MX.write(xPos);
+        
+
+            //Reset for the next message
+            message_pos = 0;
         }
     }
 }

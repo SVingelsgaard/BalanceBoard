@@ -7,15 +7,18 @@ import time
 
 class Servos:
     def __init__(self):
+        print("servo's starting...")
         self.arduino = serial.Serial(port="COM4", baudrate=9600, timeout=.1)
+        time.sleep(3)#literry dying without this idk.
 
         #clock
-        self.cycletime = 1 #the cycletime of when the cyclefunction will actually run is set here
+        self.cycletime = 0.05 #the cycletime of when the cyclefunction will actually run is set here
         self.timeLast = time.time()
 
         #servos
         self.servoX = 0
         self.servoY = 0
+        print("servo's ready")
         
     #scuffed way to determen a cycletime of the cyclefunction without using delay
     def clock(self):
@@ -28,9 +31,15 @@ class Servos:
     def cycle(self):
         self.clock()
         if (self.runCycle):
+
+            #test
             self.servoX += 1
-            self.data = str(self.servoX)
-            self.arduino.write(self.data.encode("utf-8"))
+            if self.servoX > 180:
+                self.servoX = 0
+
+
+            self.data = str(self.servoX+100)+str(self.servoY+100)#+100 to make sure data uses 3 digits.
+            self.arduino.write(bytes(self.data, 'utf-8'))
 
 
     def end(self):
