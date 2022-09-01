@@ -36,6 +36,8 @@ class Servos:
             self.servoX += 1
             if self.servoX > 180:
                 self.servoX = 0
+            
+            print(self.servoX)
 
 
             self.data = str(self.servoX+100)+str(self.servoY+100)#+100 to make sure data uses 3 digits.
