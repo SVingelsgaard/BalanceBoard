@@ -7,7 +7,7 @@ dist = lambda x1, y1, x2, y2: ((np.abs(np.float16(x1) - np.float16(x2))**2)+(np.
 class Webcam:
     def __init__(self):
         print("camera starting...")
-        self.cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
+        self.cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         self.lastCircle = None
         self.circlePositionsX = []
         self.circlePositionsY = []
