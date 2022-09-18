@@ -27,7 +27,7 @@ class Webcam:
         self.retVal, self.thresholdFrame = cv2.threshold(self.blurFrame, 220, 255, cv2.THRESH_BINARY)#donno what retVal is, but need it...
         
 
-        self.circles = cv2.HoughCircles(self.blurFrame, cv2.HOUGH_GRADIENT, 1.2, 100, param1=100, param2=30, minRadius=25 , maxRadius=75)#detect circles.
+        self.circles = cv2.HoughCircles(self.blurFrame, cv2.HOUGH_GRADIENT, 1.2, 100, param1=100, param2=30, minRadius=20 , maxRadius=40)#detect circles.
 
         if self.circles is not None:
             self.circles = np.uint16(np.around(self.circles))
@@ -43,6 +43,7 @@ class Webcam:
             cv2.circle(self.frame, (self.circle[0], self.circle[1]), self.circle[2], (0,0,0), 3)#draw circle
             self.circlePositionsX.append(self.circle[0])#graph x pos
             self.circlePositionsY.append(self.circle[1])#graph y pos
+            print(self.circle[2])
         
         cv2.imshow("Webcam", self.frame)
 
