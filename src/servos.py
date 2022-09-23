@@ -12,7 +12,7 @@ class Servos:
         time.sleep(3)#literry dying without this idk.
 
         #clock
-        self.cycletime = 0.05 #the cycletime of when the cyclefunction will actually run is set here
+        self.cycletime = 0.02 #the cycletime of when the cyclefunction will actually run is set here
         self.timeLast = time.time()
 
         #servos
@@ -22,6 +22,10 @@ class Servos:
         self.servoYZero = 98
         self.servoXlim = [-24, 27]
         self.servoYlim = [-24, 24]
+        #write zero position
+        self.servoX, self.servoY = self.servoXZero, self.servoYZero
+        self.data = str(self.servoX+100)+str(self.servoY+100)#+100 to make sure data uses 3 digits.
+        self.arduino.write(bytes(self.data, 'utf-8'))
         print("servo's ready")
         
     #scuffed way to determen a cycletime of the cyclefunction without using delay

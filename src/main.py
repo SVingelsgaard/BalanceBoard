@@ -11,7 +11,7 @@ controller = Controller()
 servos = Servos()
 
 SP = [244,277]
-
+print("running main loop")
 while True:
     if keyboard.is_pressed('q'): #if key 'q' is pressed 
         print('exiting')
@@ -22,4 +22,4 @@ while True:
 
     cam.cycle(SP)#gather input. passing SP so we can get graphics
     controller.cycle(SP, cam.PV)#determen output. passing SP and PV
-    servos.cycle(controller.output)#write output. pasing motor posiqq
+    servos.cycle(controller.output)#write output. pasing motor posi

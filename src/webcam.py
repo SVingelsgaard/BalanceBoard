@@ -44,13 +44,13 @@ class Webcam:
             self.PV = [self.circle[0], self.circle[1]]#save the position of ball/circle
             if dist(self.PV[0], self.PV[1], SP[0], SP[1]) > 17000: #distance form SP to much make no circle. not good code but to save motors from going crazy
                 self.PV = SP
-            print(self.PV)
+            else:
+                self.circlePositionsX.append(self.circle[0])#graph x pos
+                self.circlePositionsY.append(self.circle[1])#graph y pos
 
-            cv2.circle(self.frame, (self.circle[0], self.circle[1]), self.circle[2], (0,0,0), 1)#draw circle
+            cv2.circle(self.frame, (self.circle[0], self.circle[1]), self.circle[2], (0,0,0), 2)#draw circle
             cv2.circle(self.frame, SP, 2, (0,0,0),3)#draw SP
-            self.circlePositionsX.append(self.circle[0])#graph x pos
-            self.circlePositionsY.append(self.circle[1])#graph y pos
-            #print(self.circle[2])
+
         
         cv2.imshow("Webcam", self.frame)
 
@@ -65,7 +65,7 @@ class Webcam:
         self.ax.axis("equal")
         self.ax.set(xlim = (0, 800), ylim = (600, 0))
         
-        plt.show()
+        #plt.show()
         
         self.cap.release()
         cv2.destroyAllWindows()

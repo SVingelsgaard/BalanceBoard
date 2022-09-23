@@ -7,9 +7,14 @@ class Controller:
         self.error = [0, 0]
         self.output = [0, 0]
 
+        #works ok enugh with .05 CT
+        #self.Kp = .1
+        #self.Ki = 0.1
+        #self.Kd = .035
+
         self.Kp = .1
-        self.Ki = 0
-        self.Kd = 1
+        self.Ki = .1
+        self.Kd = .035
 
         self.integralError = [0, 0]
         self.errorLast = [0, 0]
@@ -17,7 +22,7 @@ class Controller:
 
 
         #clock
-        self.cycletime = 0.05 #the cycletime of when the cyclefunction will actually run is set here
+        self.cycletime = .05 #the cycletime of when the cyclefunction will actually run is set here
         self.timeLast = time.time()
 
         print("controller loaded.")
