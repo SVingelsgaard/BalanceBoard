@@ -11,10 +11,11 @@ class Webcam:
         self.lastCircle = None
         self.circlePositionsX = []
         self.circlePositionsY = []
+        self.PV = [0, 0]
         print("camera ready")
 
 
-    def cycle(self):
+    def cycle(self, SP):
         self.ret, self.frame = self.cap.read()
         if not self.ret:
             print("camera not detected")
@@ -40,10 +41,16 @@ class Webcam:
                         self.circle = i
             self.lastCircle = self.circle
 
-            cv2.circle(self.frame, (self.circle[0], self.circle[1]), self.circle[2], (0,0,0), 3)#draw circle
+            self.PV = [self.circle[0], self.circle[1]]#save the position of ball/circle
+            if dist(self.PV[0], self.PV[1], SP[0], SP[1]) > 17000: #distance form SP to much make no circle. not good code but to save motors from going crazy
+                self.PV = SP
+            print(self.PV)
+
+            cv2.circle(self.frame, (self.circle[0], self.circle[1]), self.circle[2], (0,0,0), 1)#draw circle
+            cv2.circle(self.frame, SP, 2, (0,0,0),3)#draw SP
             self.circlePositionsX.append(self.circle[0])#graph x pos
             self.circlePositionsY.append(self.circle[1])#graph y pos
-            print(self.circle[2])
+            #print(self.circle[2])
         
         cv2.imshow("Webcam", self.frame)
 
