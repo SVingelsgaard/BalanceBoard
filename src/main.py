@@ -8,7 +8,7 @@ import time
 
 cam = Webcam()
 controller = Controller()
-servos = Servos()
+servos = Servos() 
 
 SP = [244,277]
 print("running main loop")
